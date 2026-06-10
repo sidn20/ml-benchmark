@@ -1,3 +1,5 @@
+import subprocess
+import threading
 import time
 import statistics
 from dataclasses import dataclass, field
@@ -66,18 +68,76 @@ def print_summary(results: list[BenchmarkResult]):
 
 import argparse
 
+def run_with_stress(n_runs: int, n_samples: int, cpu_workers: int = 2):
+    print(f"\nStarting stress-ng with {cpu_workers} CPU workers...")
+    
+    # Start stress-ng in background as a subprocess
+    stress = subprocess.Popen(
+        ["stress-ng", "--cpu", str(cpu_workers), "--timeout", "120s"],
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL
+    )
+    
+    print("Stress running! Waiting 2 seconds for load to build...\n")
+    time.sleep(2)
+    
+    try:
+        results = run_benchmark_suite(n_runs=n_runs)
+        print_summary(results)
+    finally:
+        stress.terminate()
+        stress.wait()
+        print("Stress-ng stopped.")
+    
+    return results
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="ML Benchmark Tool")
     parser.add_argument("--runs", type=int, default=5, help="Number of benchmark runs")
     parser.add_argument("--samples", type=int, default=1000, help="Dataset size per run")
     parser.add_argument("--report", action="store_true", help="Generate CSV and PNG report")
+    parser.add_argument("--stress", action="store_true", help="Run under CPU stress load")
+    parser.add_argument("--stress-workers", type=int, default=2, help="Number of stress CPU workers")
+    parser.add_argument("--compare", action="store_true", help="Compare normal vs stressed runs")
     args = parser.parse_args()
 
-    results = run_benchmark_suite(n_runs=args.runs)
-    print_summary(results)
+    if args.compare:
+        print("=== NORMAL RUN ===")
+        normal = run_benchmark_suite(n_runs=args.runs)
+        print_summary(normal)
 
-    if args.report:
-        from reporter import save_csv, plot_results
-        df = save_csv(results)
-        plot_results(df)
-        print("Report generated: results.csv and report.png")
+        print("\n=== STRESSED RUN ===")
+        stressed = run_with_stress(n_runs=args.runs, n_samples=args.samples, cpu_workers=args.stress_workers)
+
+        # Compare the two
+        normal_mean = statistics.mean([r.latency_ms for r in normal])
+        stressed_mean = statistics.mean([r.latency_ms for r in stressed])
+        diff = stressed_mean - normal_mean
+        pct = (diff / normal_mean) * 100
+
+        print(f"\n{'='*45}")
+        print(f"  COMPARISON RESULT")
+        print(f"{'='*45}")
+        print(f"  Normal mean   : {normal_mean:.1f} ms")
+        print(f"  Stressed mean : {stressed_mean:.1f} ms")
+        print(f"  Difference    : +{diff:.1f} ms ({pct:.1f}% slower)")
+        print(f"{'='*45}")
+
+        if args.report:
+            from reporter import save_csv, plot_results
+            df = save_csv(normal + stressed)
+            plot_results(df)
+
+    elif args.stress:
+        results = run_with_stress(n_runs=args.runs, n_samples=args.samples, cpu_workers=args.stress_workers)
+        if args.report:
+            from reporter import save_csv, plot_results
+            df = save_csv(results)
+            plot_results(df)
+    else:
+        results = run_benchmark_suite(n_runs=args.runs)
+        print_summary(results)
+        if args.report:
+            from reporter import save_csv, plot_results
+            df = save_csv(results)
+            plot_results(df)
