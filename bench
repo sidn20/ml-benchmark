@@ -1,0 +1,582 @@
+Script started on 2026-06-10 06:08:28+00:00 [TERM="xterm-256color" TTY="/dev/pts/0" COLUMNS="116" LINES="27"]
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ `[7mnano collector.py[27mnano collector.py
+[?2004l[?2004h> import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+[7m    ram = psutil.virtual_memory()[27m
+[7m    [27m
+[7m    return SystemSnapshot([27m
+[7m        timestamp=time.time(),[27m
+[7m        cpu_percent=psutil.cpu_percent(interval=0.1),[27m
+[7m        ram_used_mb=ram.used / 1024 / 1024,[27m
+[7m        ram_total_mb=ram.total / 1024 / 1024,[27m
+[7m        cpu_freq_mhz=freq.current if freq else 0.0[27m
+[7m    )[27m
+
+[7mdef collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:[27m
+[7m    snapshots = [][27m
+[7m    end_time = time.time() + duration_seconds[27m
+[7m    [27m[7m    while time.time() < end_time:[27m[7m        snapshots.append(take_snapshot())[27m[7m        time.sleep(0.5)[27m[7m    [27m[7m    return snapshots[27m[7mif __name__ == "__main__":[27m[7m    print("Collecting system metrics for 5 seconds...\n")[27m[7m    results = collect_metrics(duration_seconds=5)[27m[7m    [27m[7m    for s in results:[27m[7m        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_fre[27m[7mq_mhz:.0f} MHz")[27m[A[A[A[A[A[A[A[A[A[A[A[A[A    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds
+        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")
+[?2004l[?2004h> 
+[?2004l[?2004h> 
+[?2004l[?2004h> ^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ ^V[K^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ `nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo crontab -u james -e
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[6P`nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C`nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ `nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo crontab -u james -e
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpip install scikit-learn pandas fastapi uvicorn joblib[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[Ksudo crontab -u james -e[6P`nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C`nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo crontab -u james -e
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Kdu -sh /var/cache/apt 2>/dev/null[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Ksudo crontab -u james -e[6P`nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C][K`nano collector.py
+import psutil
+import time
+from dataclasses import dataclass
+
+@dataclass
+class SystemSnapshot:
+    timestamp: float
+    cpu_percent: float
+    ram_used_mb: float
+    ram_total_mb: float
+    cpu_freq_mhz: float
+
+def take_snapshot() -> SystemSnapshot:
+    freq = psutil.cpu_freq()
+    ram = psutil.virtual_memory()
+    
+    return SystemSnapshot(
+        timestamp=time.time(),
+        cpu_percent=psutil.cpu_percent(interval=0.1),
+        ram_used_mb=ram.used / 1024 / 1024,
+        ram_total_mb=ram.total / 1024 / 1024,
+        cpu_freq_mhz=freq.current if freq else 0.0
+    )
+
+def collect_metrics(duration_seconds: int = 5) -> list[SystemSnapshot]:
+    snapshots = []
+    end_time = time.time() + duration_seconds        while time.time() < end_time:        snapshots.append(take_snapshot())        time.sleep(0.5)        return snapshotsif __name__ == "__main__":    print("Collecting system metrics for 5 seconds...\n")    results = collect_metrics(duration_seconds=5)        for s in results:        print(f"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_freq_mhz:.0f} MHz")[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Csudo crontab -u james -e
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K
+[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K[K^C[?2004l[?2004h[?2004l
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ nano collector.py
+[?2004l[?2004h[?1049h[22;0;0t[1;27r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[25;52H(B[0;7m[ Reading... ](B[m[25;51H(B[0;7m[ Read 0 lines ](B[m[H(B[0;7m  GNU nano 7.2                                        collector.py                                                  [1;115H(B[m[26d(B[0;7m^G(B[m Help[26;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[26;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[27d(B[0;7m^X(B[m Exit[27;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[27;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d[?12l[?25h[?25l[1;68H(B[0;7m*[25d(B[m[K[1;115H[2;5H(B[0;1m[36mwhile[39m(B[m time.time() < end_time:[3;9Hsnapshots.append(take_snapshot())[4;9Htime.sleep(0.5)[5d[42m    [6d(B[0;1m[36mreturn[39m(B[m snapshots[8d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[9;5Hprint((B[0;1m[32m"Collecting system metrics for 5 seconds...(B[0m[38;5;148m\n(B[0;1m[32m"[39m(B[m)[10;5Hresults = collect_metrics(duration_seconds=5)[11d[42m    [12d(B[0;1m[36mfor[39m(B[m s (B[0;1m[36min[39m(B[m results:[13d(B[0;7m<(B[0;1m[32mcpu_freq_mhz:.0f} MHz"[39m(B[m)[?12l[?25h[?25l[?12l[?25h[8G[1K print(f(B[0;1m[32m"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_fr[39m(B[0;7m>[10;50H(B[m[?25l[?12l[?25h[7d[?25l[?12l[?25h[4;24H[?25l[?12l[?25h[2;25r[2;1HM[1;27r[2;1H[42m    [49m(B[m[?25l[?12l[?25h[5;24H[?25l[?12l[?25h[8d[?25l[?12l[?25h[11;50H[?25l[?12l[?25h[14d(B[0;7m<(B[0;1m[32mcpu_freq_mhz:.0f} MHz"[39m(B[m)[K[?25l[?12l[?25h[8G[1K print(f(B[0;1m[32m"CPU: {s.cpu_percent:5.1f}%  |  RAM: {s.ram_used_mb:.0f}/{s.ram_total_mb:.0f} MB  |  Freq: {s.cpu_fr[39m(B[0;7m>[15;1H(B[m[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[12;5H[?25l[?12l[?25h[9;27H[?25l[?12l[?25h[6;5H[?25l[26;17H             (B[0;7mM-D(B[m DOS Format[15X[26;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[27;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[27;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[25d(B[0;7mFile Name to Write: collector.py                                                                                    [25;33H(B[m[?12l[?25h[?25l[25;51H[1K (B[0;7m[ Writing... ](B[m[K[1;68H(B[0;7m [115G(B[m[25;50H(B[0;7m[ Wrote 40 lines ](B[m[26;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[27;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace      (B[0;7m^U(B[m Paste        (B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[?12l[?25h[6;5H[?25l[25d[J[27d[?12l[?25h[27;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ python3 collector.py
+[?2004lCollecting system metrics for 5 seconds...
+
+CPU:  16.7%  |  RAM: 1994/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1994/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1994/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1993/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1994/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1993/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1994/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1994/9973 MB  |  Freq: 2304 MHz
+CPU:   0.0%  |  RAM: 1993/9973 MB  |  Freq: 2304 MHz
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mnano benchmark.py[27mnano benchmark.py
+[?2004l[?2004h[?1049h[22;0;0t[1;27r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[25;52H(B[0;7m[ Reading... ](B[m[25;51H(B[0;7m[ Read 0 lines ](B[m[H(B[0;7m  GNU nano 7.2                                        benchmark.py                                                  [1;115H(B[m[26d(B[0;7m^G(B[m Help[26;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[26;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[27d(B[0;7m^X(B[m Exit[27;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[27;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d[?12l[?25h[?25l[1;68H(B[0;7m*[25d(B[m[K[1;115H[2;5Hprint(f(B[0;1m[32m"  BENCHMARK SUMMARY ({len(results)} runs)"[39m(B[m)[3;5Hprint(f(B[0;1m[32m"{'='*45}"[39m(B[m)[4;5Hprint(f(B[0;1m[32m"  Min latency    : {min(latencies):.1f} ms"[39m(B[m)[5;5Hprint(f(B[0;1m[32m"  Max latency    : {max(latencies):.1f} ms"[39m(B[m)[6;5Hprint(f(B[0;1m[32m"  Mean latency   : {statistics.mean(latencies):.1f} ms"[39m(B[m)[7;5Hprint(f(B[0;1m[32m"  Stdev          : {statistics.stdev(latencies):.1f} ms"[39m(B[m)[8;5Hprint(f(B[0;1m[32m"  p95 latency    : {sorted(latencies)[int(len(latencies)*0.95)]:.1f} ms"[39m(B[m)[9;5Hprint(f(B[0;1m[32m"{'='*45}(B[0m[38;5;148m\n(B[0;1m[32m"[39m(B[m)[11d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[12;5Hresults = run_benchmark_suite(n_runs=5)[13;5Hprint_summary(results)[?12l[?25h[?25l[26;17H             (B[0;7mM-D(B[m DOS Format[15X[26;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[27;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[27;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[25d(B[0;7mFile Name to Write: benchmark.py                                                                                    [25;33H(B[m[?12l[?25h[?25l[25;51H[1K (B[0;7m[ Writing... ](B[m[K[1;68H(B[0;7m [115G(B[m[25;50H(B[0;7m[ Wrote 69 lines ](B[m[26;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[27;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace      (B[0;7m^U(B[m Paste        (B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[?12l[?25h[13;27H[?25l[25d[J[27d[?12l[?25h[27;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mpython3 benchmark.py[27mpython3 benchmark.py
+[?2004lRunning benchmark suite: 5 runs
+
+  Run 1/5... done — 132.7 ms
+  Run 2/5... done — 149.0 ms
+  Run 3/5... done — 151.5 ms
+  Run 4/5... done — 151.6 ms
+  Run 5/5... done — 144.9 ms
+
+=============================================
+  BENCHMARK SUMMARY (5 runs)
+=============================================
+  Min latency    : 132.7 ms
+  Max latency    : 151.6 ms
+  Mean latency   : 145.9 ms
+  Stdev          : 7.9 ms
+  p95 latency    : 151.6 ms
+=============================================
+
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mnano reporter.py[27mnano reporter.py
+[?2004l[?2004h[?1049h[22;0;0t[1;27r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[25;52H(B[0;7m[ Reading... ](B[m[25;51H(B[0;7m[ Read 0 lines ](B[m[H(B[0;7m  GNU nano 7.2                                         reporter.py                                                  [1;115H(B[m[26d(B[0;7m^G(B[m Help[26;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[26;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[27d(B[0;7m^X(B[m Exit[27;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[27;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d[?12l[?25h[?25l[?12l[?25h[?25l[1;68H(B[0;7m*[25d(B[m[K[1;115H[3;5Hplt.tight_layout()[4;5Hplt.savefig(path, dpi=150)[5;5Hprint(f(B[0;1m[32m"Chart saved to {path}"[39m(B[m)[7d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[8;5H(B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[9;5Hresults = run_benchmark_suite(n_runs=5)[10;5Hdf = save_csv(results)[11;5Hplot_results(df)[12;5Hprint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[13;5Hprint(df.to_string(index=(B[0;1m[35mFalse[39m(B[m))[?12l[?25h[?25l[26;17H             (B[0;7mM-D(B[m DOS Format[15X[26;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[27;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[27;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[25d(B[0;7mFile Name to Write: reporter.py                                                                                     [25;32H(B[m[?12l[?25h[?25l[25;51H[1K (B[0;7m[ Writing... ](B[m[K[1;68H(B[0;7m [115G(B[m[25;50H(B[0;7m[ Wrote 52 lines ](B[m[26;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[27;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace      (B[0;7m^U(B[m Paste        (B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[?12l[?25h[13;37H[?25l[25d[J[27d[?12l[?25h[27;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ python3 reporter.py
+[?2004lRunning benchmark suite: 5 runs
+
+  Run 1/5... done — 164.2 ms
+  Run 2/5... done — 159.2 ms
+  Run 3/5... done — 164.3 ms
+  Run 4/5... done — 172.6 ms
+  Run 5/5... done — 164.2 ms
+Results saved to results.csv
+Chart saved to report.png
+
+Final DataFrame:
+ run_id  latency_ms  avg_cpu_percent  avg_ram_mb
+      1      164.25              0.0     2123.56
+      2      159.21              2.4     2123.60
+      3      164.25              8.2     2123.60
+      4      172.63              8.3     2123.59
+      5      164.20              0.0     2123.59
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mls -lh results.csv report.png[27mls -lh results.csv report.png
+[?2004l-rw-rw-r-- 1 ubuntu ubuntu 81K Jun 10 09:03 [0m[01;35mreport.png[0m
+-rw-rw-r-- 1 ubuntu ubuntu 147 Jun 10 09:03 results.csv
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [K]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mnano benchmark.py[27mnano benchmark.py
+[?2004l[?2004h[?1049h[22;0;0t[1;26r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[24;52H(B[0;7m[ Reading... ](B[m[24;50H(B[0;7m[ Read 69 lines ](B[m[H(B[0;7m  GNU nano 7.2                                        benchmark.py                                                  [1;115H(B[m[25d(B[0;7m^G(B[m Help[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[25;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26d(B[0;7m^X(B[m Exit[26;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[26;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d(B[0;1m[36mimport[39m(B[m time[3d(B[0;1m[36mimport[39m(B[m statistics[4d(B[0;1m[36mfrom[39m(B[m dataclasses (B[0;1m[36mimport[39m(B[m dataclass, field[5d(B[0;1m[36mfrom[39m(B[m collector (B[0;1m[36mimport[39m(B[m collect_metrics, SystemSnapshot[6d(B[0;1m[36mfrom[39m(B[m sklearn.datasets (B[0;1m[36mimport[39m(B[m make_classification[7d(B[0;1m[36mfrom[39m(B[m sklearn.ensemble (B[0;1m[36mimport[39m(B[m RandomForestClassifier[8d(B[0;1m[36mimport[39m(B[m numpy (B[0;1m[36mas[39m(B[m np[10d@dataclass[11d(B[0;1m[36mclass[39m(B[m BenchmarkResult:[12;5Hrun_id: int[13;5Hlatency_ms: float[14;5Hsystem_snapshots: list[SystemSnapshot] = field(default_factory=list)[16d(B[0;1m[36mdef[34m simulate_workload[39m(B[m(n_samples: int = 1000) -> tuple:[17;5HX, y = make_classification([18;9Hn_samples=n_samples,[19;9Hn_features=20,[20;9Hrandom_state=42[21;5H)[22d(B[0;1m[36mreturn[39m(B[m X, y[2d[?12l[?25h[?25l[?12l[?25h[5d[?25l[?12l[?25h[8d[?25l[?12l[?25h[11d[?25l[?12l[?25h[14d[?25l[?12l[?25h[17d[?25l[?12l[?25h[20d[?25l[24d[K[?12l[?25h[A[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;1H(B[0;1m[36mdef[34m run_single_benchmark[39m(B[m(run_id: int, X, y) -> BenchmarkResult:[22;5Hmodel = RandomForestClassifier(n_estimators=50, random_state=42)[23d[42m    [49m(B[m[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;4H(B[0;1m[31m # Start collecting metrics in background[22;5H[39m(B[mstart = time.perf_counter()[23;5Hmodel.fit(X, y)[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5Hpredictions = model.predict(X)[22;5Hend = time.perf_counter()[23d[42m    [49m(B[m[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5Hlatency_ms = (end - start) * 1000[22;5Hsnapshots = collect_metrics(duration_seconds=1)[23d[42m    [49m(B[m[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5H(B[0;1m[36mreturn[39m(B[m BenchmarkResult([22;9Hrun_id=run_id,[23;9Hlatency_ms=latency_ms,[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;9Hsystem_snapshots=snapshots[22;5H)[23d[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;1H(B[0;1m[36mdef[34m run_benchmark_suite[39m(B[m(n_runs: int = 5) -> list[BenchmarkResult]:[22;5Hprint(f(B[0;1m[32m"Running benchmark suite: {n_runs} runs(B[0m[38;5;148m\n(B[0;1m[32m"[39m(B[m)[23;5HX, y = simulate_workload()[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5Hresults = [][22d[42m    [23d(B[0;1m[36mfor[39m(B[m i (B[0;1m[36min[39m(B[m range(n_runs):[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;9Hprint(f(B[0;1m[32m"  Run {i+1}/{n_runs}..."[39m(B[m, end=(B[0;1m[32m" "[39m(B[m, flush=(B[0;1m[35mTrue[39m(B[m)[22;9Hresult = run_single_benchmark(i+1, X, y)[23;9Hresults.append(result)[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;9Hprint(f(B[0;1m[32m"done — {result.latency_ms:.1f} ms"[39m(B[m)[22d[42m    [23d(B[0;1m[36mreturn[39m(B[m results[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[22;1H(B[0;1m[36mdef[34m print_summary[39m(B[m(results: list[BenchmarkResult]):[23;5Hlatencies = [r.latency_ms (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m results][?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;1H[42m    [22d[49m(B[mprint(f(B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32m{'='*45}"[39m(B[m)[23;5Hprint(f(B[0;1m[32m"  BENCHMARK SUMMARY ({len(results)} runs)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint(f(B[0;1m[32m"{'='*45}"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d[2S[1;26r[22;5Hprint(f(B[0;1m[32m"  Min latency    : {min(latencies):.1f} ms"[39m(B[m)[23;5Hprint(f(B[0;1m[32m"  Max latency    : {max(latencies):.1f} ms"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5Hprint(f(B[0;1m[32m"  Mean latency   : {statistics.mean(latencies):.1f} ms"[39m(B[m)[22;5Hprint(f(B[0;1m[32m"  Stdev          : {statistics.stdev(latencies):.1f} ms"[39m(B[m)[23;5Hprint(f(B[0;1m[32m"  p95 latency    : {sorted(latencies)[int(len(latencies)*0.95)]:.1f} ms"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint(f(B[0;1m[32m"{'='*45}(B[0m[38;5;148m\n(B[0;1m[32m"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d[2S[1;26r[23;1H(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hresults = run_benchmark_suite(n_runs=5)[?25l[?12l[?25h7[2;24r8[24d[2S[1;26r[22;5Hprint_summary(results)[23d[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[22;27H[?25l[1;68H(B[0;7m*[115G(B[m[?12l[?25h[22;26H [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[5G(B[0;1m[36mprint[39m(B[m[K[?25l[?12l[?25h[5Gprin[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m    [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[K[?25l[21;44H[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m    [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[K[?25l[20;27H[?12l[?25h[?25l[?12l[?25h [?25l[?12l[?25h[20;16H"__main__[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h[42m [49m(B[m[K[?25l[?12l[?25h [?25l[?12l[?25hi[K[?25l[?12l[?25h[K[?25l[A[?12l[?25h[?25l[20d[?12l[?25h[?25l[2;5Hprint(f(B[0;1m[32m"  Mean latency   : {statistics.mean(latencies):.1f} ms"[39m(B[m)[3;5Hprint(f(B[0;1m[32m"  Stdev          : {statistics.stdev(latencies):.1f} ms"[39m(B[m)[4d    print(f(B[0;1m[32m"  p95 latency    : {sorted(latencies)[int(len(latencies)*0.95)]:.1f} ms"[39m(B[m)[5;5Hprint(f(B[0;1m[32m"{'='*45}(B[0m[38;5;148m\n(B[0;1m[32m"[39m(B[m)[7d(B[0;1m[36mimport[39m(B[m argparse[K[8d[K[9d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[10;6Harser = argparse.ArgumentParser(description=(B[0;1m[32m"ML Benchmark Tool"[39m(B[m)[11;6Harser.add_argument((B[0;1m[32m"--runs"[39m(B[m, type=int, default=5, help=(B[0;1m[32m"Number of benchmark runs"[39m(B[m)[12;6Harser.add_argument((B[0;1m[32m"--samples"[39m(B[m, type=int, default=1000, help=(B[0;1m[32m"Dataset size per run"[39m(B[m)[13;6Harser.add_argument((B[0;1m[32m"--report"[39m(B[m, action=(B[0;1m[32m"store_true"[39m(B[m, help=(B[0;1m[32m"Generate CSV and PNG report"[39m(B[m)[14;5Hargs = parser.parse_args()[K[15d[K[16;5Hresults = run_benchmark_suite(n_runs=args.runs)[K[17;10H_summary(results)[K[18d[K[19;5H(B[0;1m[36mif[39m(B[m args.report:[20;9H(B[0;1m[36mfrom[39m(B[m reporter (B[0;1m[36mimport[39m(B[m save_csv, plot_results[21;9Hdf = save_csv(results)[22;9Hplot_results(df)[23;9Hprint((B[0;1m[32m"Report generated: results.csv and report.png"[39m(B[m)[?12l[?25h[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[25;17H             (B[0;7mM-D(B[m DOS Format[15X[25;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[26;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[26;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[24d(B[0;7mFile Name to Write: benchmark.py                                                                                    [24;33H(B[m[?12l[?25h[?25l[24;51H[1K (B[0;7m[ Writing... ](B[m[K[1;68H(B[0;7m [115G(B[m[24;50H(B[0;7m[ Wrote 83 lines ](B[m[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace      (B[0;7m^U(B[m Paste        (B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[?12l[?25h[23d[?25l[24d[J[26d[?12l[?25h[26;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7m# See help[27m
+[7mpython3 benchmark.py --help[27m
+
+[7m# Run 3 times with report[27m
+[7mpython3 benchmark.py --runs 3 --report[27m
+
+[7m# Run 10 times with bigger dataset[27m
+[7mpython3 benchmark.py --runs 10 --samples 5000[27m[A[A[A[A[A[A[A# See help
+python3 benchmark.py --help
+
+# Run 3 times with report
+python3 benchmark.py --runs 3 --report
+
+# Run 10 times with bigger dataset
+python3 benchmark.py --runs 10 --samples 5000
+[?2004lusage: benchmark.py [-h] [--runs RUNS] [--samples SAMPLES] [--report]
+
+ML Benchmark Tool
+
+options:
+  -h, --help         show this help message and exit
+  --runs RUNS        Number of benchmark runs
+  --samples SAMPLES  Dataset size per run
+  --report           Generate CSV and PNG report
+Running benchmark suite: 3 runs
+
+  Run 1/3... done — 133.5 ms
+  Run 2/3... done — 152.2 ms
+  Run 3/3... done — 158.9 ms
+
+=============================================
+  BENCHMARK SUMMARY (3 runs)
+=============================================
+  Min latency    : 133.5 ms
+  Max latency    : 158.9 ms
+  Mean latency   : 148.2 ms
+  Stdev          : 13.2 ms
+  p95 latency    : 158.9 ms
+=============================================
+
+Results saved to results.csv
+Chart saved to report.png
+Report generated: results.csv and report.png
+Running benchmark suite: 10 runs
+
+  Run 1/10... done — 133.8 ms
+  Run 2/10... done — 145.0 ms
+  Run 3/10... done — 156.2 ms
+  Run 4/10... done — 168.2 ms
+  Run 5/10... done — 144.8 ms
+  Run 6/10... done — 178.1 ms
+  Run 7/10... done — 148.5 ms
+  Run 8/10... done — 156.8 ms
+  Run 9/10... done — 161.0 ms
+  Run 10/10... done — 148.6 ms
+
+=============================================
+  BENCHMARK SUMMARY (10 runs)
+=============================================
+  Min latency    : 133.8 ms
+  Max latency    : 178.1 ms
+  Mean latency   : 154.1 ms
+  Stdev          : 12.8 ms
+  p95 latency    : 178.1 ms
+=============================================
+
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mnano README.md[27mnano README.md
+[?2004l[?2004h[?1049h[22;0;0t[1;26r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[24;53H(B[0;7m[ New File ](B[m[H(B[0;7m  GNU nano 7.2                                          README.md                                                   [1;115H(B[m[25d(B[0;7m^G(B[m Help[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[25;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26d(B[0;7m^X(B[m Exit[26;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[26;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d[?12l[?25h[?25l[1;67H(B[0;7m*[24d(B[m[K[1;115H[2d(B[0;1m[33m# Larger dataset[3d[36mpython3 benchmark.py --runs 10 --samples 5000 --report[4d```[6d[33m## Sample Output[7d[35m- [36m`results.csv`[39m(B[m — per-run latency and system metrics[8d(B[0;1m[35m- [36m`report.png`[39m(B[m — latency, CPU, and RAM charts[10d(B[0;1m[33m## Requirements[11d[36m```bash[12dpip3 install transformers psutil pandas matplotlib scikit-learn[13d```[39m(B[m[?12l[?25h[?25l[25;17H             (B[0;7mM-D(B[m DOS Format[15X[25;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[26;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[26;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[24d(B[0;7mFile Name to Write: README.md                                                                                       [24;30H(B[m[?12l[?25h[?25l[24;51H[1K (B[0;7m[ Writing... ](B[m[K[1;67H(B[0;7m [115G(B[m[24;50H(B[0;7m[ Wrote 37 lines ](B[m[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    
