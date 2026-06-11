@@ -14,6 +14,19 @@ Built with Python, psutil, scikit-learn, pandas, and matplotlib.
 - `benchmark.py` — runs ML workload and measures latency
 - `reporter.py` — saves results to CSV and generates charts
 
+## Key Finding
+
+Under CPU stress, models behave very differently:
+
+| Model              | Normal  | Stressed  | Slowdown     |
+|--------------------|---------|-----------|--------------|
+| LogisticRegression | 5.5ms   | 2047ms    | +37,253%     |
+| RandomForest       | 123ms   | 136ms     | +10.5%       |
+| GradientBoosting   | 199ms   | 224ms     | +12.7%       |
+| SVM                | 41ms    | 36ms      | -12.2%       |
+
+**Takeaway:** The fastest model under normal conditions can become
+the slowest under load. Always benchmark under realistic system conditions.
 ## Usage
 
 ```bash
