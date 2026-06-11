@@ -1,0 +1,7 @@
+[2026-06-11 06:37:54] ALERT: Mean latency 327.5ms exceeds threshold 100ms
+======================================
+ALERT: 2026-06-11 06:38:03
+Mean latency: 327.5ms
+Threshold   : 100ms
+Action      : Investigate system load
+======================================
