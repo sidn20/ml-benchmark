@@ -5,3 +5,10 @@ Mean latency: 327.5ms
 Threshold   : 100ms
 Action      : Investigate system load
 ======================================
+[2026-06-11 07:30:01] ALERT: Mean latency 225.0ms exceeds threshold 200ms
+======================================
+ALERT: 2026-06-11 07:30:11
+Mean latency: 225.0ms
+Threshold   : 200ms
+Action      : Investigate system load
+======================================

@@ -70,4 +70,292 @@ Action      : Investigate system load
 [?2004l[?2004h[?1049h[22;0;0t[1;26r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[24;52H(B[0;7m[ Reading... ](B[m[24;50H(B[0;7m[ Read 34 lines ](B[m[H(B[0;7m  GNU nano 7.2                                        scheduler.sh                                                  [1;115H(B[m[25d(B[0;7m^G(B[m Help[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[25;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26d(B[0;7m^X(B[m Exit[26;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[26;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d[36m#!/bin/bash[4d# Config[5d[39m(B[mBENCHMARK_DIR[32m=(B[0;1m[33m"$HOME/ml_benchmark"[6d[39m(B[mLOG_FILE[32m=(B[0;1m[33m"$BENCHMARK_DIR/benchmark_log.csv"[7d[39m(B[mTHRESHOLD_MS[32m=[39m(B[m100[8dTIMESTAMP[32m=$([39m(B[mdate (B[0;1m[33m'+%Y-%m-%d %H:%M:%S'(B[0m[32m)[10d[36m# Create log file with header if it doesn't exist[11d[32mif[39m(B[m [32m[[39m(B[m [32m!(B[0;1m[35m -f[39m(B[m (B[0;1m[33m"$LOG_FILE"[39m(B[m [32m];[39m(B[m [32mthen[12;5H(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"timestamp,min_ms,max_ms,mean_ms,stdev_ms"[39m(B[m [32m>[39m(B[m (B[0;1m[33m"$LOG_FILE"[13;5H[34mecho[39m(B[m (B[0;1m[33m"Log file created at $LOG_FILE"[14d(B[0m[32mfi[16d(B[0;1m[34mecho[39m(B[m (B[0;1m[33m"[$TIMESTAMP] Running benchmark..."[18d(B[0m[36m# Run benchmark and capture output[19d[39m(B[mOUTPUT[32m=$([39m(B[mpython3 (B[0;1m[33m"$BENCHMARK_DIR/benchmark.py"[35m --runs[39m(B[m 5[32m)[21d[36m# Parse results using grep and awk[22d[39m(B[mMIN[32m=$((B[0;1m[34mecho[39m(B[m (B[0;1m[33m"$OUTPUT"[39m(B[m   [32m|[39m(B[m (B[0;1m[34mgrep[39m(B[m (B[0;1m[33m"Min latency"[39m(B[m  [32m|[39m(B[m (B[0;1m[34mawk[39m(B[m (B[0;1m[33m'{print $(NF-1)}'(B[0m[32m)[23d[39m(B[mMAX[32m=$((B[0;1m[34mecho[39m(B[m (B[0;1m[33m"$OUTPUT"[39m(B[m   [32m|[39m(B[m (B[0;1m[34mgrep[39m(B[m (B[0;1m[33m"Max latency"[39m(B[m  [32m|[39m(B[m (B[0;1m[34mawk[39m(B[m (B[0;1m[33m'{print $(NF-1)}'(B[0m[32m)[2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[3d[?25l[?12l[?25h[A[?25l[?12l[?25h[3d[?25l[?12l[?25h[4d[?25l[?12l[?25h[5d[?25l[?12l[?25h[6d[?25l[?12l[?25h[7d[?25l[?12l[?25h[7;17H[?25l[1;68H(B[0;7m*[115G(B[m[?12l[?25h[7;16H [?25l[?12l[?25h [?25l[?12l[?25h [?25l[?12l[?25h2[?25l[?12l[?25h0[?25l[?12l[?25h0[?25l[25;17H             (B[0;7mM-D(B[m DOS Format[15X[25;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[26;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[26;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[24d(B[0;7mFile Name to Write: scheduler.sh                                                                                    [24;33H(B[m[?12l[?25h[?25l[24;51H[1K (B[0;7m[ Writing... ](B[m[K[1;68H(B[0;7m [115G(B[m[24;50H(B[0;7m[ Wrote 34 lines ](B[m[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace      (B[0;7m^U(B[m Paste        (B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[?12l[?25h[7;17H[?25l[24d[J[26d[?12l[?25h[26;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mcrontab -e[27mcrontab -e
 [?2004lno crontab for ubuntu - using an empty one
 [?2004h[?1049h[22;0;0t[1;26r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[24;52H(B[0;7m[ Reading... ](B[m[24;50H(B[0;7m[ Read 23 lines ](B[m[H(B[0;7m  GNU nano 7.2                                 /tmp/crontab.K9T95H/crontab                                          [1;115H(B[m[25d(B[0;7m^G(B[m Help[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[25;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26d(B[0;7m^X(B[m Exit[26;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[26;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d[36m# Edit this file to introduce tasks to be run by cron.[3d# [4d# Each task to run has to be defined through a single line[5d# indicating with different fields when the task will be run[6d# and what command to run for the task[7d# [8d# To define the time you can provide concrete values for[9d# minute (m), hour (h), day of month (dom), month (mon),[10d# and day of week (dow) or use '*' in these fields (for 'any').[11d# [12d# Notice that tasks will be started based on the cron's system[13d# daemon's notion of time and timezones.[14d# [15d# Output of the crontab jobs (including errors) is sent through[16d# email to the user the crontab file belongs to (unless redirected).[17d# [18d# For example, you can run a backup of all your user accounts[19d# at 5 a.m every week with:[20d# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/[21d# [22d# For more information see the manual pages of crontab(5) and cron(8)[23d# [2d[39m(B[m[?12l[?25h[?25l[?12l[?25h[5d[?25l[?12l[?25h[8d[?25l[?12l[?25h[11d[?25l[?12l[?25h[14d[?25l[?12l[?25h[17d[?25l[?12l[?25h[20d[?25l[24d[K[?12l[?25h[A[?25l[?12l[?25h7[2;24r8[24d[2S[1;26r[22;1H[36m# m h  dom mon dow   command[23d[39m(B[m[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[1;76H(B[0;7m*[115G(B[m[23d*/30 * * * * /bin/bash /home/ubuntu/ml_benchmark/scheduler.sh >> /home/ubuntu/ml_benchmark/cron.log 2>&1[?12l[?25h[?25l[25;17H             (B[0;7mM-D(B[m DOS Format[15X[25;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[26;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[26;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[24d(B[0;7mFile Name to Write: /tmp/crontab.K9T95H/crontab                                                                     [24;48H(B[m[?12l[?25h[?25l   [1K (B[0;7m[ Writing... ](B[m[K[1;76H(B[0;7m [115G(B[m[24;50H(B[0;7m[ Wrote 24 lines ](B[m[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace      (B[0;7m^U(B[m Paste        (B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[?12l[?25h[23d[?25l[24d[J[26d[?12l[?25h[26;1H[?1049l[23;0;0t[?1l>[?2004lcrontab: installing new crontab
-[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mcrontab 
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mcrontab -l[27mcrontab -l
+[?2004l# Edit this file to introduce tasks to be run by cron.
+# 
+# Each task to run has to be defined through a single line
+# indicating with different fields when the task will be run
+# and what command to run for the task
+# 
+# To define the time you can provide concrete values for
+# minute (m), hour (h), day of month (dom), month (mon),
+# and day of week (dow) or use '*' in these fields (for 'any').
+# 
+# Notice that tasks will be started based on the cron's system
+# daemon's notion of time and timezones.
+# 
+# Output of the crontab jobs (including errors) is sent through
+# email to the user the crontab file belongs to (unless redirected).
+# 
+# For example, you can run a backup of all your user accounts
+# at 5 a.m every week with:
+# 0 5 * * 1 tar -zcf /var/backups/home.tgz /home/
+# 
+# For more information see the manual pages of crontab(5) and cron(8)
+# 
+# m h  dom mon dow   command
+*/30 * * * * /bin/bash /home/ubuntu/ml_benchmark/scheduler.sh >> /home/ubuntu/ml_benchmark/cron.log 2>&1
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mgit add .[27m
+[7mgit commit -m "add bash automation: scheduler, alerts, and cron job"[27m
+[7mgit push[27m[A[A]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ git add .
+git commit -m "add bash automation: scheduler, alerts, and cron job"
+git push
+[?2004l[main 07f1c97] add bash automation: scheduler, alerts, and cron job
+ 7 files changed, 203 insertions(+), 1 deletion(-)
+ create mode 100755 alert.sh
+ create mode 100644 alerts.log
+ create mode 100644 bench1
+ create mode 100644 bench1.txt
+ create mode 100644 benchmark_log.csv
+ create mode 100755 scheduler.sh
+Enumerating objects: 11, done.
+Counting objects:   9% (1/11)Counting objects:  18% (2/11)Counting objects:  27% (3/11)Counting objects:  36% (4/11)Counting objects:  45% (5/11)Counting objects:  54% (6/11)Counting objects:  63% (7/11)Counting objects:  72% (8/11)Counting objects:  81% (9/11)Counting objects:  90% (10/11)Counting objects: 100% (11/11)Counting objects: 100% (11/11), done.
+Delta compression using up to 2 threads
+Compressing objects:  11% (1/9)Compressing objects:  22% (2/9)Compressing objects:  33% (3/9)Compressing objects:  44% (4/9)Compressing objects:  55% (5/9)Compressing objects:  66% (6/9)Compressing objects:  77% (7/9)Compressing objects:  88% (8/9)Compressing objects: 100% (9/9)Compressing objects: 100% (9/9), done.
+Writing objects:  11% (1/9)Writing objects:  22% (2/9)Writing objects:  33% (3/9)Writing objects:  44% (4/9)Writing objects:  55% (5/9)Writing objects:  66% (6/9)Writing objects:  77% (7/9)Writing objects:  88% (8/9)Writing objects: 100% (9/9)Writing objects: 100% (9/9), 6.22 KiB | 318.00 KiB/s, done.
+Total 9 (delta 3), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas:   0% (0/3)[Kremote: Resolving deltas:  33% (1/3)[Kremote: Resolving deltas:  66% (2/3)[Kremote: Resolving deltas: 100% (3/3)[Kremote: Resolving deltas: 100% (3/3), completed with 2 local objects.[K
+To https://github.com/sidn20/ml-benchmark
+   c8121bf..07f1c97  main -> main
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mtail -f cron.log[27mtail -f cron.log
+[?2004ltail: cannot open 'cron.log' for reading: No such file or directory
+tail: no files remaining
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mbash scheduler.sh >> cron.log 2>&1[27m
+[7mcat cron.log[27m[A]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ bash scheduler.sh >> cron.log 2>&1
+cat cron.log
+[?2004l[2026-06-11 06:46:39] Running benchmark...
+[2026-06-11 06:46:39] Logged — mean: 173.1ms, max: 192.0ms
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ cat cron.logbash scheduler.sh >> cron.log 2>&1[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[18Ptail -f cron.log
+[?2004l[2026-06-11 06:46:39] Running benchmark...
+[2026-06-11 06:46:39] Logged — mean: 173.1ms, max: 192.0ms
+[2026-06-11 07:00:01] Running benchmark...
+[2026-06-11 07:00:01] Logged — mean: 197.8ms, max: 240.5ms
+^C
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mcat benchmark_log.csv[27mcat benchmark_log.csv
+[?2004l2026-06-11 06:34:33,,,,
+2026-06-11 06:36:36,118.3,164.2,128.3,20.1
+2026-06-11 06:37:54,150.1,880.7,327.5,311.6
+2026-06-11 06:46:39,159.2,192.0,173.1,15.6
+2026-06-11 07:00:01,164.7,240.5,197.8,34.8
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mnano reporter.py[27mnano reporter.py
+[?2004l[?2004h[?1049h[22;0;0t[1;26r(B[m[4l[?7h[39;49m[?1h=[?1h=[?25l[39;49m(B[m[H[2J[24;52H(B[0;7m[ Reading... ](B[m[24;50H(B[0;7m[ Read 128 lines ](B[m[H(B[0;7m  GNU nano 7.2                                         reporter.py                                                  [1;115H(B[m[25d(B[0;7m^G(B[m Help[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut[25;65H(B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26d(B[0;7m^X(B[m Exit[26;17H(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace[49G(B[0;7m^U(B[m Paste[26;65H(B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[2d(B[0;1m[36mimport[39m(B[m pandas (B[0;1m[36mas[39m(B[m pd[3d(B[0;1m[36mimport[39m(B[m matplotlib[4dmatplotlib.use((B[0;1m[32m'Agg'[39m(B[m) (B[0;1m[31m # no display needed, saves to file[5d[36mimport[39m(B[m matplotlib.pyplot (B[0;1m[36mas[39m(B[m plt[6d(B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m BenchmarkResult[8d(B[0;1m[36mdef[34m save_csv[39m(B[m(results: list[BenchmarkResult], path: str = (B[0;1m[32m"results.csv"[39m(B[m):[9;5Hrows = [][10;5H(B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m results:[11;9Havg_cpu = sum(s.cpu_percent (B[0;1m[36mfor[39m(B[m s (B[0;1m[36min[39m(B[m r.system_snapshots) / len(r.system_snapshots) (B[0;1m[36mif[39m(B[m r.system_snapshots (B[0;1m[36mel[39m(B[0;7m>[12;9H(B[mavg_ram = sum(s.ram_used_mb (B[0;1m[36mfor[39m(B[m s (B[0;1m[36min[39m(B[m r.system_snapshots) / len(r.system_snapshots) (B[0;1m[36mif[39m(B[m r.system_snapshots (B[0;1m[36mel[39m(B[0;7m>[13;9H(B[mrows.append({[14;13H(B[0;1m[32m"run_id"[39m(B[m: r.run_id,[15;13H(B[0;1m[32m"latency_ms"[39m(B[m: round(r.latency_ms, 2),[16;13H(B[0;1m[32m"avg_cpu_percent"[39m(B[m: round(avg_cpu, 2),[17;13H(B[0;1m[32m"avg_ram_mb"[39m(B[m: round(avg_ram, 2)[18;9H})[19;5Hdf = pd.DataFrame(rows)[20;5Hdf.to_csv(path, index=(B[0;1m[35mFalse[39m(B[m)[21;5Hprint(f(B[0;1m[32m"Results saved to {path}"[39m(B[m)[22;5H(B[0;1m[36mreturn[39m(B[m df[2d[?12l[?25h[?25l[?12l[?25h[3d[?25l[?12l[?25h[4d[?25l[?12l[?25h[5d[?25l[?12l[?25h[6d[?25l[?12l[?25h[7d[?25l[?12l[?25h[8d[?25l[?12l[?25h[9d[?25l[?12l[?25h[10d[?25l[?12l[?25h[11d[?25l[?12l[?25h[12d[?25l[?12l[?25h[13d[?25l[?12l[?25h[14d[?25l[?12l[?25h[15d[?25l[?12l[?25h[16d[?25l[?12l[?25h[17d[?25l[?12l[?25h[18d[?25l[?12l[?25h[19d[?25l[?12l[?25h[20d[?25l[?12l[?25h[21d[?25l[24d[K[?12l[?25h[22d[?25l[?12l[?25h[23d[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H(B[0;1m[36mdef[34m plot_results[39m(B[m(df: pd.DataFrame, path: str = (B[0;1m[32m"report.png"[39m(B[m):[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;4H(B[0;1m[31m # detect if we have both normal and stressed runs (more than 5 rows = comparison)[39m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5His_comparison = len(df) > 5[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hfig, axes = plt.subplots(1, 3, figsize=(14, 4))[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hfig.suptitle((B[0;1m[32m"ML Benchmark Report"[39m(B[m, fontsize=14, fontweight=(B[0;1m[32m'bold'[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mif[39m(B[m is_comparison:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Hmid = len(df) // 2[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Hnormal_df = df.iloc[:mid][?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Hstressed_df = df.iloc[mid:][?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;8H(B[0;1m[31m # Latency comparison[39m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].plot(normal_df[(B[0;1m[32m"run_id"[39m(B[m].values, normal_df[(B[0;1m[32m"latency_ms"[39m(B[m].values,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;22Hmarker=(B[0;1m[32m'o'[39m(B[m, label=(B[0;1m[32m"Normal"[39m(B[m, color=(B[0;1m[32m"steelblue"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].plot(stressed_df[(B[0;1m[32m"run_id"[39m(B[m].values, stressed_df[(B[0;1m[32m"latency_ms"[39m(B[m].values,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;22Hmarker=(B[0;1m[32m'o'[39m(B[m, label=(B[0;1m[32m"Stressed"[39m(B[m, color=(B[0;1m[32m"tomato"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].legend()[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].set_title((B[0;1m[32m"Latency: Normal vs Stressed"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;8H(B[0;1m[31m # CPU comparison[39m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].plot(normal_df[(B[0;1m[32m"run_id"[39m(B[m].values, normal_df[(B[0;1m[32m"avg_cpu_percent"[39m(B[m].values,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;22Hmarker=(B[0;1m[32m'o'[39m(B[m, label=(B[0;1m[32m"Normal"[39m(B[m, color=(B[0;1m[32m"steelblue"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].plot(stressed_df[(B[0;1m[32m"run_id"[39m(B[m].values, stressed_df[(B[0;1m[32m"avg_cpu_percent"[39m(B[m].values,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;22Hmarker=(B[0;1m[32m'o'[39m(B[m, label=(B[0;1m[32m"Stressed"[39m(B[m, color=(B[0;1m[32m"tomato"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].legend()[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].set_title((B[0;1m[32m"CPU %: Normal vs Stressed"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;8H(B[0;1m[31m # Bar chart summary[39m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Hmeans = [normal_df[(B[0;1m[32m"latency_ms"[39m(B[m].mean(), stressed_df[(B[0;1m[32m"latency_ms"[39m(B[m].mean()][?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Hbars = axes[2].bar([(B[0;1m[32m"Normal"[39m(B[m, (B[0;1m[32m"Stressed"[39m(B[m], means, color=[(B[0;1m[32m"steelblue"[39m(B[m, (B[0;1m[32m"tomato"[39m(B[m])[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[2].set_title((B[0;1m[32m"Mean Latency Comparison"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[2].set_ylabel((B[0;1m[32m"Latency (ms)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9H(B[0;1m[36mfor[39m(B[m bar, val (B[0;1m[36min[39m(B[m zip(bars, means):[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;13Haxes[2].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;25Hf(B[0;1m[32m"{val:.1f}ms"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontweight=(B[0;1m[32m'bold'[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36melse[39m(B[m:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].bar(df[(B[0;1m[32m"run_id"[39m(B[m], df[(B[0;1m[32m"latency_ms"[39m(B[m], color=(B[0;1m[32m"steelblue"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].set_title((B[0;1m[32m"Latency per Run"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].set_xlabel((B[0;1m[32m"Run"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].set_ylabel((B[0;1m[32m"Latency (ms)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].plot(df[(B[0;1m[32m"run_id"[39m(B[m], df[(B[0;1m[32m"avg_cpu_percent"[39m(B[m], marker=(B[0;1m[32m'o'[39m(B[m, color=(B[0;1m[32m"tomato"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].set_title((B[0;1m[32m"Avg CPU % per Run"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].set_xlabel((B[0;1m[32m"Run"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].set_ylabel((B[0;1m[32m"CPU %"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[2].plot(df[(B[0;1m[32m"run_id"[39m(B[m], df[(B[0;1m[32m"avg_ram_mb"[39m(B[m], marker=(B[0;1m[32m's'[39m(B[m, color=(B[0;1m[32m"seagreen"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[2].set_title((B[0;1m[32m"Avg RAM Usage per Run"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[2].set_xlabel((B[0;1m[32m"Run"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[2].set_ylabel((B[0;1m[32m"RAM (MB)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplt.tight_layout()[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplt.savefig(path, dpi=150)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint(f(B[0;1m[32m"Chart saved to {path}"[39m(B[m)[42m [49m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H(B[0;1m[36mdef[34m save_model_report[39m(B[m(normal: list, stressed: list, path: str = (B[0;1m[32m"model_report.png"[39m(B[m):[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mimport[39m(B[m numpy (B[0;1m[36mas[39m(B[m np[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hnames = [r.model_name (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m normal][?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hnormal_latencies = [r.latency_ms (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m normal][?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hstressed_latencies = [r.latency_ms (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m stressed][?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haccuracies = [r.accuracy (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m normal][?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hx = np.arange(len(names))[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hwidth = 0.35[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hfig, axes = plt.subplots(1, 2, figsize=(14, 5))[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hfig.suptitle((B[0;1m[32m"Model Comparison: Normal vs Stressed"[39m(B[m, fontsize=14, fontweight=(B[0;1m[32m'bold'[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;4H(B[0;1m[31m # Latency chart[39m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hbars1 = axes[0].bar(x - width/2, normal_latencies, width, label=(B[0;1m[32m"Normal"[39m(B[m, color=(B[0;1m[32m"steelblue"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hbars2 = axes[0].bar(x + width/2, stressed_latencies, width, label=(B[0;1m[32m"Stressed"[39m(B[m, color=(B[0;1m[32m"tomato"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_title((B[0;1m[32m"Latency by Model"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_ylabel((B[0;1m[32m"Latency (ms)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_xticks(x)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_xticklabels(names, rotation=15)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].legend()[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfor[39m(B[m bar (B[0;1m[36min[39m(B[m bars1:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;21Hf(B[0;1m[32m"{bar.get_height():.0f}"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=8)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfor[39m(B[m bar (B[0;1m[36min[39m(B[m bars2:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;21Hf(B[0;1m[32m"{bar.get_height():.0f}"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=8)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;4H(B[0;1m[31m # Accuracy chart[39m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hbars3 = axes[1].bar(names, accuracies, color=(B[0;1m[32m"seagreen"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].set_title((B[0;1m[32m"Accuracy by Model (Normal)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].set_ylabel((B[0;1m[32m"Accuracy (%)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].set_ylim(80, 100)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].tick_params(axis=(B[0;1m[32m'x'[39m(B[m, rotation=15)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfor[39m(B[m bar, val (B[0;1m[36min[39m(B[m zip(bars3, accuracies):[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;21Hf(B[0;1m[32m"{val:.1f}%"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=9, fontweight=(B[0;1m[32m'bold'[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplt.tight_layout()[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplt.savefig(path, dpi=150)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint(f(B[0;1m[32m"Model report saved to {path}"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hresults = run_benchmark_suite(n_runs=5)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hdf = save_csv(results)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplot_results(df)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint(df.to_string(index=(B[0;1m[35mFalse[39m(B[m))[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h7[2;24r8M[1;26r[2;4H(B[0;1m[31m # Accuracy chart[39m(B[m[?25l[?12l[?25h7[2;23r8M[1;26r[2;1H[?25l[?12l[?25h7[2;23r8M[1;26r[2;21Hf(B[0;1m[32m"{bar.get_height():.0f}"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=8)[?25l[?12l[?25h7[2;23r8M[1;26r[2;9Haxes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,[?25l[?12l[?25h7[2;23r8M[1;26r[2;5H(B[0;1m[36mfor[39m(B[m bar (B[0;1m[36min[39m(B[m bars2:[?25l[?12l[?25h7[2;23r8M[1;26r[2;21Hf(B[0;1m[32m"{bar.get_height():.0f}"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=8)[?25l[?12l[?25h7[2;23r8M[1;26r[2;9Haxes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,[?25l[?12l[?25h7[2;23r8M[1;26r[2;5H(B[0;1m[36mfor[39m(B[m bar (B[0;1m[36min[39m(B[m bars1:[?25l[?12l[?25h7[2;24r8M[1;26r[2;5Haxes[0].legend()[?25l[?12l[?25h7[2;24r8M[1;26r[2;5Haxes[0].set_xticklabels(names, rotation=15)[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Haxes[0].set_xticks(x)[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Haxes[0].set_ylabel((B[0;1m[32m"Latency (ms)"[39m(B[m)[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Haxes[0].set_title((B[0;1m[32m"Latency by Model"[39m(B[m)[?25l[?12l[?25h7[2;24r8M[1;26r[2;5Hbars2 = axes[0].bar(x + width/2, stressed_latencies, width, label=(B[0;1m[32m"Stressed"[39m(B[m, color=(B[0;1m[32m"tomato"[39m(B[m)[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hbars1 = axes[0].bar(x - width/2, normal_latencies, width, label=(B[0;1m[32m"Normal"[39m(B[m, color=(B[0;1m[32m"steelblue"[39m(B[m)[?25l[?12l[?25h7[2;23r8M[1;26r[2;4H(B[0;1m[31m # Latency chart[39m(B[m[?25l[?12l[?25h7[2;23r8M[1;26r[2;1H[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hfig.suptitle((B[0;1m[32m"Model Comparison: Normal vs Stressed"[39m(B[m, fontsize=14, fontweight=(B[0;1m[32m'bold'[39m(B[m)[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hfig, axes = plt.subplots(1, 2, figsize=(14, 5))[?25l[?12l[?25h7[2;23r8M[1;26r[2;1H[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hwidth = 0.35[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hx = np.arange(len(names))[?25l[?12l[?25h7[2;23r8M[1;26r[2;1H[?25l[?12l[?25h7[2;24r8M[1;26r[2;5Haccuracies = [r.accuracy (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m normal][?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hstressed_latencies = [r.latency_ms (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m stressed][?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hnormal_latencies = [r.latency_ms (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m normal][?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hnames = [r.model_name (B[0;1m[36mfor[39m(B[m r (B[0;1m[36min[39m(B[m normal][?25l[?12l[?25h7[2;23r8M[1;26r[2;1H[?25l[?12l[?25h7[2;23r8M[1;26r[2;5H(B[0;1m[36mimport[39m(B[m numpy (B[0;1m[36mas[39m(B[m np[?25l[?12l[?25h7[2;23r8M[1;26r[2;1H(B[0;1m[36mdef[34m save_model_report[39m(B[m(normal: list, stressed: list, path: str = (B[0;1m[32m"model_report.png"[39m(B[m):[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hprint(f(B[0;1m[32m"Chart saved to {path}"[39m(B[m)[42m [49m(B[m[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hplt.savefig(path, dpi=150)[?25l[?12l[?25h7[2;23r8M[1;26r[2;5Hplt.tight_layout()[?25l[?12l[?25h7[2;23r8M[1;26r[2;1H[?25l[?12l[?25h7[2;23r8M[1;26r[2;9Haxes[2].set_ylabel((B[0;1m[32m"RAM (MB)"[39m(B[m)[?25l[?12l[?25h[3d[?25l[?12l[?25h[4d[?25l[?12l[?25h[5d[?25l[?12l[?25h[6d[?25l[?12l[?25h[7d[?25l[?12l[?25h[8d[?25l[?12l[?25h[9d[?25l[?12l[?25h[10d[?25l[?12l[?25h[11d[?25l[?12l[?25h[12d[?25l[?12l[?25h[13d[?25l[?12l[?25h[14d[?25l[?12l[?25h[15d[?25l[?12l[?25h[16d[?25l[?12l[?25h[17d[?25l[?12l[?25h[18d[?25l[?12l[?25h[19d[?25l[?12l[?25h[20d[?25l[?12l[?25h[21d[?25l[?12l[?25h[22d[?25l[?12l[?25h[23d[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_title((B[0;1m[32m"Latency by Model"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_ylabel((B[0;1m[32m"Latency (ms)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_xticks(x)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].set_xticklabels(names, rotation=15)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[0].legend()[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfor[39m(B[m bar (B[0;1m[36min[39m(B[m bars1:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;21Hf(B[0;1m[32m"{bar.get_height():.0f}"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=8)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfor[39m(B[m bar (B[0;1m[36min[39m(B[m bars2:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;21Hf(B[0;1m[32m"{bar.get_height():.0f}"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=8)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;4H(B[0;1m[31m # Accuracy chart[39m(B[m[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hbars3 = axes[1].bar(names, accuracies, color=(B[0;1m[32m"seagreen"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].set_title((B[0;1m[32m"Accuracy by Model (Normal)"[39m(B[m)[?25l[?12l[?25h[A[?25l[?12l[?25h[23d[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].set_ylabel((B[0;1m[32m"Accuracy (%)"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].set_ylim(80, 100)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Haxes[1].tick_params(axis=(B[0;1m[32m'x'[39m(B[m, rotation=15)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfor[39m(B[m bar, val (B[0;1m[36min[39m(B[m zip(bars3, accuracies):[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;9Haxes[1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;21Hf(B[0;1m[32m"{val:.1f}%"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=9, fontweight=(B[0;1m[32m'bold'[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplt.tight_layout()[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplt.savefig(path, dpi=150)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint(f(B[0;1m[32m"Model report saved to {path}"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5H(B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hresults = run_benchmark_suite(n_runs=5)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hdf = save_csv(results)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hplot_results(df)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;5Hprint(df.to_string(index=(B[0;1m[35mFalse[39m(B[m))[?25l[?12l[?25h7[2;24r8[24d
+[1;26r[23;1H[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[14d[?25l[1;68H(B[0;7m*[115G(B[m[14;24r[14;1HM[1;26r[15;1H[?12l[?25h[?25l7[7;15r8[3S[1;26r[13;24r[24;1H[2S[1;26r[2;16H[1K width=0.003)[K[3;24H(B[0;1m[32mLatency Stability (Stdev) — red bars = unstable runs"[39m(B[m)[4;25H(B[0;1m[32mStdev (ms)"[39m(B[m)[K[5;13Hxaxis.set_major_formatter(mdates.DateFormatter((B[0;1m[32m'%H:%M'[39m(B[m))[6;44H4[10;13H(B[0;1m[32mTrend plo[39m(B[m[2P[12d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[13;5Hplot_trend()[?12l[?25h[?25l[?12l[?25h[16d[?25l[?12l[?25h[19d[?25l[?12l[?25h[22d[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[?12l[?25h[?25l[2;24r[24;1H[6S[1;26r[16;1H(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[17;5H(B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[18;5Hresults = run_benchmark_suite(n_runs=5)[19;5Hdf = save_csv(results)[20;5Hplot_results(df)[21;5Hprint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[22;5Hprint(df.to_string(index=(B[0;1m[35mFalse[39m(B[m))[23d[?12l[?25h[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[A[?25l[?12l[?25h[9d[?25l    (B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[10;5Hresults = run_benchmark_suite(n_runs=5)[K[11;5Hdf = save_csv(results)[K[12;5Hplot_results(df)[K[13;6Hrint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[14;11Hdf.to_string(index=(B[0;1m[35mFalse[39m(B[m))[15d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[K[16d    (B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[17;5Hresults = run_benchmark_suite(n_runs=5)[K[18;5Hdf = save_csv(results)[K[19;5Hplot_results(df)[K[20;6Hrint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[21;11Hdf.to_string(index=(B[0;1m[35mFalse[39m(B[m))[22d[K[9d[?12l[?25h[?25l    results = run_benchmark_suite(n_runs=5)[K[10;5Hdf = save_csv(results)[K[11;5Hplot_results(df)[K[12;6Hrint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[13;11Hdf.to_string(index=(B[0;1m[35mFalse[39m(B[m))[14d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[K[15d    (B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[16;5Hresults = run_benchmark_suite(n_runs=5)[K[17;5Hdf = save_csv(results)[K[18;5Hplot_results(df)[K[19;6Hrint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[20;11Hdf.to_string(index=(B[0;1m[35mFalse[39m(B[m))[21d[K[9d[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[9;24r[24;1H
+[1;26r[9;1H[?12l[?25h[?25l[K[?12l[?25h[?25l[24;49H(B[0;7m[ Nothing was cut ](B[m[?12l[?25h[9d[?25l[?12l[?25h[6d[?25l[?12l[?25h[3d[?25l[?12l[?25h[2;23r[2;1H[2T[1;26r[2;5Haxes[1].tick_params(axis=(B[0;1m[32m'x'[39m(B[m, rotation=45)[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Haxes[1].set_title((B[0;1m[32m"Latency Stability (Stdev) — red bars = unstable runs"[39m(B[m)[3;5Haxes[1].set_ylabel((B[0;1m[32m"Stdev (ms)"[39m(B[m)[4;5Haxes[1].xaxis.set_major_formatter(mdates.DateFormatter((B[0;1m[32m'%H:%M'[39m(B[m))[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Haxes[1].bar(df[(B[0;1m[32m"timestamp"[39m(B[m], df[(B[0;1m[32m"stdev_ms"[39m(B[m],[3;17Hcolor=[(B[0;1m[32m"tomato"[39m(B[m (B[0;1m[36mif[39m(B[m v > 50 (B[0;1m[36melse[39m(B[m (B[0;1m[32m"seagreen"[39m(B[m (B[0;1m[36mfor[39m(B[m v (B[0;1m[36min[39m(B[m df[(B[0;1m[32m"stdev_ms"[39m(B[m]],[4;17Hwidth=0.003)[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;9Haxes[0].legend()[4;4H(B[0;1m[31m # Plot 2 — stdev over time (stability indicator)[2d[39m(B[m[?25l[24d[K[?12l[?25h[2;24r[2;1H[3T[1;26r[2;5H(B[0;1m[36mif[39m(B[m (B[0;1m[36mnot[39m(B[m spikes.empty:[3;9Haxes[0].scatter(spikes[(B[0;1m[32m"timestamp"[39m(B[m], spikes[(B[0;1m[32m"mean_ms"[39m(B[m],[4;24Hcolor=(B[0;1m[32m"tomato"[39m(B[m, zorder=5, s=100, label=(B[0;1m[32m"Spike"[39m(B[m)[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[3;4H(B[0;1m[31m # Highlight spikes above threshold[4;5H[39m(B[mspikes = df[df[(B[0;1m[32m"mean_ms"[39m(B[m] > 200][2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Haxes[0].legend()[3;5Haxes[0].xaxis.set_major_formatter(mdates.DateFormatter((B[0;1m[32m'%H:%M'[39m(B[m))[4;5Haxes[0].tick_params(axis=(B[0;1m[32m'x'[39m(B[m, rotation=45)[2d[?25l[?12l[?25h7[2;24r8[3T[1;26r[2;5Haxes[0].axhline(y=200, color=(B[0;1m[32m"tomato"[39m(B[m, linestyle=(B[0;1m[32m"--"[39m(B[m, linewidth=1, label=(B[0;1m[32m"Threshold (200ms)"[39m(B[m)[3;5Haxes[0].set_title((B[0;1m[32m"Mean Latency Over Time"[39m(B[m)[4;5Haxes[0].set_ylabel((B[0;1m[32m"Latency (ms)"[39m(B[m)[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Haxes[0].plot(df[(B[0;1m[32m"timestamp"[39m(B[m], df[(B[0;1m[32m"mean_ms"[39m(B[m], marker=(B[0;1m[32m'o'[39m(B[m, color=(B[0;1m[32m"steelblue"[39m(B[m, label=(B[0;1m[32m"Mean"[39m(B[m)[3;5Haxes[0].fill_between(df[(B[0;1m[32m"timestamp"[39m(B[m], df[(B[0;1m[32m"min_ms"[39m(B[m], df[(B[0;1m[32m"max_ms"[39m(B[m],[4;26Halpha=0.2, color=(B[0;1m[32m"steelblue"[39m(B[m, label=(B[0;1m[32m"Min/Max range"[39m(B[m)[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Hfig.suptitle((B[0;1m[32m"Benchmark Latency Trend Over Time"[39m(B[m, fontsize=14, fontweight=(B[0;1m[32m'bold'[39m(B[m)[4;4H(B[0;1m[31m # Plot 1 — mean latency over time with min/max band[2d[39m(B[m[?25l[?12l[?25h[5d[?25l[?12l[?25h[8d[?25l[?12l[?25h[11d[?25l[?12l[?25h[14d[?25l[?12l[?25h[17d[?25l[?12l[?25h[20d[?25l[?12l[?25h[23d[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;17Hcolor=[(B[0;1m[32m"tomato"[39m(B[m (B[0;1m[36mif[39m(B[m v > 50 (B[0;1m[36melse[39m(B[m (B[0;1m[32m"seagreen"[39m(B[m (B[0;1m[36mfor[39m(B[m v (B[0;1m[36min[39m(B[m df[(B[0;1m[32m"stdev_ms"[39m(B[m]],[22;17Hwidth=0.003)[23;5Haxes[1].set_title((B[0;1m[32m"Latency Stability (Stdev) — red bars = unstable runs"[39m(B[m)[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5Haxes[1].set_ylabel((B[0;1m[32m"Stdev (ms)"[39m(B[m)[22;5Haxes[1].xaxis.set_major_formatter(mdates.DateFormatter((B[0;1m[32m'%H:%M'[39m(B[m))[23;5Haxes[1].tick_params(axis=(B[0;1m[32m'x'[39m(B[m, rotation=45)[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[22;5Hplt.tight_layout()[23;5Hplt.savefig(path, dpi=150)[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5Hprint(f(B[0;1m[32m"Trend plot saved to {path}"[39m(B[m)[23d(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[?25l[?12l[?25h7[2;24r8[24d[3S[1;26r[21;5Hplot_trend()[23d[?25l[?12l[?25h[?25l[?12l[?25h[20d[?25l[?12l[?25h[17d[?25l[?12l[?25h[14d[?25l[?12l[?25h[11d[?25l[?12l[?25h[8d[?25l[?12l[?25h[5d[?25l[?12l[?25h[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[3;4H(B[0;1m[31m # Highlight spikes above threshold[4;5H[39m(B[mspikes = df[df[(B[0;1m[32m"mean_ms"[39m(B[m] > 200][2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Haxes[0].legend()[3;5Haxes[0].xaxis.set_major_formatter(mdates.DateFormatter((B[0;1m[32m'%H:%M'[39m(B[m))[4;5Haxes[0].tick_params(axis=(B[0;1m[32m'x'[39m(B[m, rotation=45)[2d[?25l[?12l[?25h7[2;24r8[3T[1;26r[2;5Haxes[0].axhline(y=200, color=(B[0;1m[32m"tomato"[39m(B[m, linestyle=(B[0;1m[32m"--"[39m(B[m, linewidth=1, label=(B[0;1m[32m"Threshold (200ms)"[39m(B[m)[3;5Haxes[0].set_title((B[0;1m[32m"Mean Latency Over Time"[39m(B[m)[4;5Haxes[0].set_ylabel((B[0;1m[32m"Latency (ms)"[39m(B[m)[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Haxes[0].plot(df[(B[0;1m[32m"timestamp"[39m(B[m], df[(B[0;1m[32m"mean_ms"[39m(B[m], marker=(B[0;1m[32m'o'[39m(B[m, color=(B[0;1m[32m"steelblue"[39m(B[m, label=(B[0;1m[32m"Mean"[39m(B[m)[3;5Haxes[0].fill_between(df[(B[0;1m[32m"timestamp"[39m(B[m], df[(B[0;1m[32m"min_ms"[39m(B[m], df[(B[0;1m[32m"max_ms"[39m(B[m],[4;26Halpha=0.2, color=(B[0;1m[32m"steelblue"[39m(B[m, label=(B[0;1m[32m"Min/Max range"[39m(B[m)[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Hfig.suptitle((B[0;1m[32m"Benchmark Latency Trend Over Time"[39m(B[m, fontsize=14, fontweight=(B[0;1m[32m'bold'[39m(B[m)[4;4H(B[0;1m[31m # Plot 1 — mean latency over time with min/max band[2d[39m(B[m[?25l[?12l[?25h7[2;24r8[3T[1;26r[2;5Hdf = df.sort_values((B[0;1m[32m"timestamp"[39m(B[m)[4;5Hfig, axes = plt.subplots(2, 1, figsize=(12, 8))[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Hdf.columns = df.columns.str.strip()[3;5Hdf = df.dropna(subset=[(B[0;1m[32m"mean_ms"[39m(B[m])[4;5Hdf[(B[0;1m[32m"timestamp"[39m(B[m] = pd.to_datetime(df[(B[0;1m[32m"timestamp"[39m(B[m])[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[3;4H(B[0;1m[31m # Read and clean the CSV[4;5H[39m(B[mdf = pd.read_csv(log_path)[2d[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Hmatplotlib.use((B[0;1m[32m'Agg'[39m(B[m)[3;5H(B[0;1m[36mimport[39m(B[m matplotlib.pyplot (B[0;1m[36mas[39m(B[m plt[4;5H(B[0;1m[36mimport[39m(B[m matplotlib.dates (B[0;1m[36mas[39m(B[m mdates[2d[?25l[?12l[?25h7[2;23r8[2T[1;26r[2;5H(B[0;1m[36mimport[39m(B[m pandas (B[0;1m[36mas[39m(B[m pd[3;5H(B[0;1m[36mimport[39m(B[m matplotlib[A[?25l[?12l[?25h7[2;23r8M[1;26r[2;1H(B[0;1m[36mdef[34m plot_trend[39m(B[m(log_path: str = (B[0;1m[32m"benchmark_log.csv"[39m(B[m, path: str = (B[0;1m[32m"trend_plot.png"[39m(B[m):[?25l[?12l[?25h7[2;23r8[3T[1;26r[2;5Hplt.savefig(path, dpi=150)[3;5Hprint(f(B[0;1m[32m"Model report saved to {path}"[39m(B[m)[A[?25l[?12l[?25h7[2;24r8[3T[1;26r[2;21Hf(B[0;1m[32m"{val:.1f}%"[39m(B[m, ha=(B[0;1m[32m'center'[39m(B[m, fontsize=9, fontweight=(B[0;1m[32m'bold'[39m(B[m)[4;5Hplt.tight_layout()[2d[?25l[?12l[?25h[3d[?25l[?12l[?25h[4d[?25l[?12l[?25h[5d[?25l[?12l[?25h[6d[?25l[?12l[?25h[7d[?25l7[7;23r8[7T[1;26r[7;1H(B[0;1m[36mif[39m(B[m __name__ == (B[0;1m[32m"__main__"[39m(B[m:[8;5H(B[0;1m[36mfrom[39m(B[m benchmark (B[0;1m[36mimport[39m(B[m run_benchmark_suite[9;5Hresults = run_benchmark_suite(n_runs=5)[10;5Hdf = save_csv(results)[11;5Hplot_results(df)[12;5Hprint((B[0;1m[32m"(B[0m[38;5;148m\n(B[0;1m[32mFinal DataFrame:"[39m(B[m)[13;5Hprint(df.to_string(index=(B[0;1m[35mFalse[39m(B[m))[14d[?12l[?25h[?25l[25;17H             (B[0;7mM-D(B[m DOS Format[15X[25;59H(B[0;7mM-A(B[m Append      [81G       (B[0;7mM-B(B[m Backup File[K[26;2H(B[0;7mC(B[m Cancel[17G             (B[0;7mM-M(B[m Mac Format[15X[26;59H(B[0;7mM-P(B[m Prepend     [81G       (B[0;7m^T(B[m Browse[K[24d(B[0;7mFile Name to Write: reporter.py                                                                                     [24;32H(B[m[?12l[?25h[?25l[24;51H[1K (B[0;7m[ Writing... ](B[m[K[1;68H(B[0;7m [115G(B[m[24;49H(B[0;7m[ Wrote 178 lines ](B[m[25;17H(B[0;7m^O(B[m Write Out    (B[0;7m^W(B[m Where Is     (B[0;7m^K(B[m Cut          (B[0;7m^T(B[m Execute[81G(B[0;7m^C(B[m Location     (B[0;7mM-U(B[m Undo[26;2H(B[0;7mX(B[m Exit  [17G(B[0;7m^R(B[m Read File    (B[0;7m^\(B[m Replace      (B[0;7m^U(B[m Paste        (B[0;7m^J(B[m Justify[81G(B[0;7m^/(B[m Go To Line   (B[0;7mM-E(B[m Redo[?12l[?25h[14d[?25l[24d[J[26d[?12l[?25h[26;1H[?1049l[23;0;0t[?1l>[?2004l[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mpython3 reporter.py[27mpython3 reporter.py
+[?2004lRunning benchmark suite: 5 runs
+
+  Run 1/5... done — 150.9 ms
+  Run 2/5... done — 140.1 ms
+  Run 3/5... done — 169.7 ms
+  Run 4/5... done — 177.9 ms
+  Run 5/5... done — 228.9 ms
+Results saved to results.csv
+Chart saved to report.png
+
+Final DataFrame:
+ run_id  latency_ms  avg_cpu_percent  avg_ram_mb
+      1      150.86              2.5     2538.81
+      2      140.15              0.0     2538.82
+      3      169.71              0.0     2538.82
+      4      177.90              5.3     2538.82
+      5      228.93              2.5     2538.82
+Traceback (most recent call last):
+  File "/home/ubuntu/ml_benchmark/reporter.py", line 177, in <module>
+    plot_trend()
+  File "/home/ubuntu/ml_benchmark/reporter.py", line 138, in plot_trend
+    df = df.dropna(subset=["mean_ms"])
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ubuntu/.local/lib/python3.12/site-packages/pandas/core/frame.py", line 7801, in dropna
+    raise KeyError(np.array(subset)[check].tolist())
+KeyError: ['mean_ms']
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mhead -1 benchmark_log.csv[27mhead -1 benchmark_log.csv
+[?2004l2026-06-11 06:34:33,,,,
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7m# Remove the bad first row and add proper header[27m
+[7mecho "timestamp,min_ms,max_ms,mean_ms,stdev_ms" > benchmark_log_fixed.csv[27m
+[7mtail -n +2 benchmark_log.csv >> benchmark_log_fixed.csv[27m
+[7mmv benchmark_log_fixed.csv benchmark_log.csv[27m
+[7mhead -3 benchmark_log.csv[27m[A[A[A[A]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ # Remove the bad first row and add proper header
+echo "timestamp,min_ms,max_ms,mean_ms,stdev_ms" > benchmark_log_fixed.csv
+tail -n +2 benchmark_log.csv >> benchmark_log_fixed.csv
+mv benchmark_log_fixed.csv benchmark_log.csv
+head -3 benchmark_log.csv
+[?2004ltimestamp,min_ms,max_ms,mean_ms,stdev_ms
+2026-06-11 06:36:36,118.3,164.2,128.3,20.1
+2026-06-11 06:37:54,150.1,880.7,327.5,311.6
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mpython3 reporter.py[27m
+[7mls -lh trend_plot.png[27m[A]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ python3 reporter.py
+ls -lh trend_plot.png
+[?2004lRunning benchmark suite: 5 runs
+
+  Run 1/5... done — 167.7 ms
+  Run 2/5... done — 154.2 ms
+  Run 3/5... done — 154.9 ms
+  Run 4/5... done — 155.3 ms
+  Run 5/5... done — 148.7 ms
+Results saved to results.csv
+Chart saved to report.png
+
+Final DataFrame:
+ run_id  latency_ms  avg_cpu_percent  avg_ram_mb
+      1      167.66             0.00     2542.13
+      2      154.16             0.00     2542.40
+      3      154.93             4.75     2542.41
+      4      155.28             0.00     2542.41
+      5      148.72             2.40     2542.40
+Trend plot saved to trend_plot.png
+-rw-rw-r-- 1 ubuntu ubuntu 115K Jun 11 08:57 [0m[01;35mtrend_plot.png[0m
+[?2004h]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ [7mgit add .[27m
+[7mgit commit -m "add latency trend plot over time with spike detection"[27m
+[7mgit push[27m[A[A]0;ubuntu@ubuntu: ~/ml_benchmark[01;32mubuntu@ubuntu[00m:[01;34m~/ml_benchmark[00m$ git add .
+git commit -m "add latency trend plot over time with spike detection"
+git pu

@@ -117,8 +117,6 @@ def save_model_report(normal: list, stressed: list, path: str = "model_report.pn
     plt.tight_layout()
     plt.savefig(path, dpi=150)
     print(f"Model report saved to {path}")
-
-
 if __name__ == "__main__":
     from benchmark import run_benchmark_suite
     results = run_benchmark_suite(n_runs=5)
@@ -126,3 +124,55 @@ if __name__ == "__main__":
     plot_results(df)
     print("\nFinal DataFrame:")
     print(df.to_string(index=False))
+
+def plot_trend(log_path: str = "benchmark_log.csv", path: str = "trend_plot.png"):
+    import pandas as pd
+    import matplotlib
+    matplotlib.use('Agg')
+    import matplotlib.pyplot as plt
+    import matplotlib.dates as mdates
+
+    # Read and clean the CSV
+    df = pd.read_csv(log_path)
+    df.columns = df.columns.str.strip()
+    df = df.dropna(subset=["mean_ms"])
+    df["timestamp"] = pd.to_datetime(df["timestamp"])
+    df = df.sort_values("timestamp")
+
+    fig, axes = plt.subplots(2, 1, figsize=(12, 8))
+    fig.suptitle("Benchmark Latency Trend Over Time", fontsize=14, fontweight='bold')
+
+    # Plot 1 — mean latency over time with min/max band
+    axes[0].plot(df["timestamp"], df["mean_ms"], marker='o', color="steelblue", label="Mean")
+    axes[0].fill_between(df["timestamp"], df["min_ms"], df["max_ms"],
+                         alpha=0.2, color="steelblue", label="Min/Max range")
+    axes[0].axhline(y=200, color="tomato", linestyle="--", linewidth=1, label="Threshold (200ms)")
+    axes[0].set_title("Mean Latency Over Time")
+    axes[0].set_ylabel("Latency (ms)")
+    axes[0].legend()
+    axes[0].xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    axes[0].tick_params(axis='x', rotation=45)
+
+    # Highlight spikes above threshold
+    spikes = df[df["mean_ms"] > 200]
+    if not spikes.empty:
+        axes[0].scatter(spikes["timestamp"], spikes["mean_ms"],
+                       color="tomato", zorder=5, s=100, label="Spike")
+        axes[0].legend()
+
+    # Plot 2 — stdev over time (stability indicator)
+    axes[1].bar(df["timestamp"], df["stdev_ms"],
+                color=["tomato" if v > 50 else "seagreen" for v in df["stdev_ms"]],
+                width=0.003)
+    axes[1].set_title("Latency Stability (Stdev) — red bars = unstable runs")
+    axes[1].set_ylabel("Stdev (ms)")
+    axes[1].xaxis.set_major_formatter(mdates.DateFormatter('%H:%M'))
+    axes[1].tick_params(axis='x', rotation=45)
+
+    plt.tight_layout()
+    plt.savefig(path, dpi=150)
+    print(f"Trend plot saved to {path}")
+
+if __name__ == "__main__":
+    plot_trend()
+
