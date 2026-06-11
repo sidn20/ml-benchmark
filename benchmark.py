@@ -1,3 +1,7 @@
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.svm import SVC
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 import subprocess
 import threading
 import time
@@ -90,6 +94,85 @@ def run_with_stress(n_runs: int, n_samples: int, cpu_workers: int = 2):
         print("Stress-ng stopped.")
     
     return results
+MODELS = {
+    "RandomForest":     RandomForestClassifier(n_estimators=50, random_state=42),
+    "SVM":              SVC(random_state=42),
+    "LogisticRegression": LogisticRegression(max_iter=1000, random_state=42),
+    "GradientBoosting": GradientBoostingClassifier(n_estimators=50, random_state=42),
+}
+
+@dataclass
+class ModelResult:
+    model_name: str
+    latency_ms: float
+    accuracy: float
+    stressed: bool = False
+
+def benchmark_single_model(name: str, model, X, y, stressed: bool = False) -> ModelResult:
+    start = time.perf_counter()
+    model.fit(X, y)
+    predictions = model.predict(X)
+    end = time.perf_counter()
+
+    latency_ms = (end - start) * 1000
+    accuracy = accuracy_score(y, predictions) * 100
+
+    return ModelResult(
+        model_name=name,
+        latency_ms=round(latency_ms, 2),
+        accuracy=round(accuracy, 2),
+        stressed=stressed
+    )
+
+def run_model_comparison(n_runs: int = 3, stressed: bool = False) -> list[ModelResult]:
+    X, y = simulate_workload()
+    all_results = []
+
+    label = "STRESSED" if stressed else "NORMAL"
+    print(f"\n=== MODEL COMPARISON ({label}) ===\n")
+
+    for name, model in MODELS.items():
+        run_latencies = []
+        run_accuracies = []
+
+        for i in range(n_runs):
+            # re-instantiate model each run to avoid fitted state carrying over
+            import copy
+            fresh_model = copy.deepcopy(model)
+            result = benchmark_single_model(name, fresh_model, X, y, stressed)
+            run_latencies.append(result.latency_ms)
+            run_accuracies.append(result.accuracy)
+
+        avg_latency = round(statistics.mean(run_latencies), 2)
+        avg_accuracy = round(statistics.mean(run_accuracies), 2)
+
+        print(f"  {name:<22} {avg_latency:>8.1f} ms  |  {avg_accuracy:.1f}% accuracy")
+        all_results.append(ModelResult(name, avg_latency, avg_accuracy, stressed))
+
+    return all_results
+
+def print_model_summary(normal: list[ModelResult], stressed: list[ModelResult]):
+    print(f"\n{'='*55}")
+    print(f"  FINAL MODEL COMPARISON SUMMARY")
+    print(f"{'='*55}")
+    print(f"  {'Model':<22} {'Normal':>10} {'Stressed':>10} {'Slowdown':>10}")
+    print(f"  {'-'*50}")
+
+    for n, s in zip(normal, stressed):
+        slowdown = ((s.latency_ms - n.latency_ms) / n.latency_ms) * 100
+        print(f"  {n.model_name:<22} {n.latency_ms:>8.1f}ms {s.latency_ms:>8.1f}ms {slowdown:>+9.1f}%")
+
+    fastest = min(normal, key=lambda r: r.latency_ms)
+    most_accurate = max(normal, key=lambda r: r.accuracy)
+    most_stressed = max(
+        zip(normal, stressed),
+        key=lambda pair: pair[1].latency_ms - pair[0].latency_ms
+    )
+
+    print(f"\n  Fastest model     : {fastest.model_name} ({fastest.latency_ms:.1f}ms)")
+    print(f"  Most accurate     : {most_accurate.model_name} ({most_accurate.accuracy:.1f}%)")
+    print(f"  Most stress-affected : {most_stressed[0].model_name}")
+    print(f"{'='*55}\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="ML Benchmark Tool")
@@ -99,22 +182,40 @@ if __name__ == "__main__":
     parser.add_argument("--stress", action="store_true", help="Run under CPU stress load")
     parser.add_argument("--stress-workers", type=int, default=2, help="Number of stress CPU workers")
     parser.add_argument("--compare", action="store_true", help="Compare normal vs stressed runs")
+    parser.add_argument("--compare-models", action="store_true", help="Compare all models normal vs stressed")
     args = parser.parse_args()
 
-    if args.compare:
-        print("=== NORMAL RUN ===")
+    if args.compare_models:
+        normal = run_model_comparison(n_runs=args.runs, stressed=False)
+
+        print("\nStarting stress-ng for stressed comparison...")
+        stress = subprocess.Popen(
+            ["stress-ng", "--cpu", "2", "--timeout", "120s"],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        )
+        time.sleep(2)
+        try:
+            stressed = run_model_comparison(n_runs=args.runs, stressed=True)
+        finally:
+            stress.terminate()
+            stress.wait()
+            print("Stress-ng stopped.")
+
+        print_model_summary(normal, stressed)
+
+        if args.report:
+            from reporter import save_model_report
+            save_model_report(normal, stressed)
+
+    elif args.compare:
         normal = run_benchmark_suite(n_runs=args.runs)
         print_summary(normal)
-
-        print("\n=== STRESSED RUN ===")
         stressed = run_with_stress(n_runs=args.runs, n_samples=args.samples, cpu_workers=args.stress_workers)
-
-        # Compare the two
         normal_mean = statistics.mean([r.latency_ms for r in normal])
         stressed_mean = statistics.mean([r.latency_ms for r in stressed])
         diff = stressed_mean - normal_mean
         pct = (diff / normal_mean) * 100
-
         print(f"\n{'='*45}")
         print(f"  COMPARISON RESULT")
         print(f"{'='*45}")
@@ -122,7 +223,6 @@ if __name__ == "__main__":
         print(f"  Stressed mean : {stressed_mean:.1f} ms")
         print(f"  Difference    : +{diff:.1f} ms ({pct:.1f}% slower)")
         print(f"{'='*45}")
-
         if args.report:
             from reporter import save_csv, plot_results
             df = save_csv(normal + stressed)
@@ -134,6 +234,7 @@ if __name__ == "__main__":
             from reporter import save_csv, plot_results
             df = save_csv(results)
             plot_results(df)
+
     else:
         results = run_benchmark_suite(n_runs=args.runs)
         print_summary(results)

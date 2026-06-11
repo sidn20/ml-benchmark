@@ -75,6 +75,49 @@ def plot_results(df: pd.DataFrame, path: str = "report.png"):
     plt.tight_layout()
     plt.savefig(path, dpi=150)
     print(f"Chart saved to {path}") 
+def save_model_report(normal: list, stressed: list, path: str = "model_report.png"):
+    import numpy as np
+
+    names = [r.model_name for r in normal]
+    normal_latencies = [r.latency_ms for r in normal]
+    stressed_latencies = [r.latency_ms for r in stressed]
+    accuracies = [r.accuracy for r in normal]
+
+    x = np.arange(len(names))
+    width = 0.35
+
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    fig.suptitle("Model Comparison: Normal vs Stressed", fontsize=14, fontweight='bold')
+
+    # Latency chart
+    bars1 = axes[0].bar(x - width/2, normal_latencies, width, label="Normal", color="steelblue")
+    bars2 = axes[0].bar(x + width/2, stressed_latencies, width, label="Stressed", color="tomato")
+    axes[0].set_title("Latency by Model")
+    axes[0].set_ylabel("Latency (ms)")
+    axes[0].set_xticks(x)
+    axes[0].set_xticklabels(names, rotation=15)
+    axes[0].legend()
+    for bar in bars1:
+        axes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,
+                    f"{bar.get_height():.0f}", ha='center', fontsize=8)
+    for bar in bars2:
+        axes[0].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 2,
+                    f"{bar.get_height():.0f}", ha='center', fontsize=8)
+
+    # Accuracy chart
+    bars3 = axes[1].bar(names, accuracies, color="seagreen")
+    axes[1].set_title("Accuracy by Model (Normal)")
+    axes[1].set_ylabel("Accuracy (%)")
+    axes[1].set_ylim(80, 100)
+    axes[1].tick_params(axis='x', rotation=15)
+    for bar, val in zip(bars3, accuracies):
+        axes[1].text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.1,
+                    f"{val:.1f}%", ha='center', fontsize=9, fontweight='bold')
+
+    plt.tight_layout()
+    plt.savefig(path, dpi=150)
+    print(f"Model report saved to {path}")
+
 
 if __name__ == "__main__":
     from benchmark import run_benchmark_suite
