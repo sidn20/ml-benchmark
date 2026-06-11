@@ -7,16 +7,18 @@ models behave under CPU and memory stress conditions.
 Built with Python, psutil, scikit-learn, pandas, and matplotlib on Ubuntu Linux.
 
 ---
-
 ## Project Structure
-ml_benchmark/
-├── collector.py   — reads live Linux system metrics using psutil
-├── benchmark.py   — runs ML workloads, stress tests, CLI interface
-├── reporter.py    — saves results to CSV and generates charts
-├── results.csv    — benchmark data output
-├── report.png     — latency and system metrics chart
-└── model_report.png — model comparison chart
 
+```
+ml_benchmark/
+├── collector.py      — reads live Linux system metrics using psutil
+├── benchmark.py      — runs ML workloads, stress tests, CLI interface
+├── reporter.py       — saves results to CSV and generates charts
+├── results.csv       — benchmark data output
+├── report.png        — latency and system metrics chart
+├── model_report.png  — CPU stress model comparison chart
+└── memory_stress_report.png — memory stress model comparison chart
+```
 ---
 
 ## Usage
