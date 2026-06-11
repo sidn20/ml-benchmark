@@ -91,6 +91,18 @@ it only needs one tree worth of RAM at any moment.
 | Unknown / variable load  | GradientBoosting   |
 
 ---
+## Automated Monitoring
+
+The scheduler runs every 30 minutes via cron and logs results to `benchmark_log.csv`.
+The trend plot shows latency over time with spike detection and stability indicators.
+
+![Latency Trend](trend_plot.png)
+
+- Blue line — mean latency over time
+- Shaded band — min/max range per run
+- Red dotted line — alert threshold (200ms)
+- Red dots — runs that exceeded threshold
+- Red bars — unstable runs (stdev > 50ms)
 
 ## Requirements
 
